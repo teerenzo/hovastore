@@ -60,7 +60,7 @@ class Cart extends ConsumerWidget {
                         onPressed: () => {clearCart(ref)},
                         child: Text("Clear"),
                         style: ElevatedButton.styleFrom(
-                          primary: secondaryColor,
+                          backgroundColor: secondaryColor,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(5.0),
                             side: BorderSide(color: whiteColor, width: 0.8),
