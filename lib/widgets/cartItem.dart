@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hovastore/models/productModel.dart';
 import 'package:hovastore/screens/dashboard_screen.dart';
+import 'package:hovastore/services/cartService.dart';
 import 'package:hovastore/utils/colors.dart';
 
 class CartItem extends StatelessWidget {
+  WidgetRef? ref;
   Product? product;
   CartItem({super.key, this.product});
 

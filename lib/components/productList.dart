@@ -114,7 +114,7 @@ class ProductListUi extends ConsumerWidget {
                                 gridDelegate:
                                     SliverGridDelegateWithFixedCrossAxisCount(
                                         crossAxisCount:
-                                            screenSize.width > 600 ? 2 : 1,
+                                            (screenSize.width > 900) ? 2 : 1,
                                         crossAxisSpacing: 20,
                                         mainAxisSpacing: 20,
                                         childAspectRatio: (2 / 1)),
@@ -125,8 +125,10 @@ class ProductListUi extends ConsumerWidget {
                 ),
               );
       },
-      loading: () => const Center(
-        child: CircularProgressIndicator(),
+      loading: () => Expanded(
+        child: const Center(
+          child: CircularProgressIndicator(),
+        ),
       ),
       error: (error, stackTrace) => Center(
         child: Text(error.toString()),

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hovastore/models/productModel.dart';
+import 'package:hovastore/provider/product_provider.dart';
 import 'package:hovastore/services/cartService.dart';
 import 'package:hovastore/utils/colors.dart';
 
@@ -11,6 +12,8 @@ class ProductCard extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
+    final cart = ref.watch(cartProvider);
+    bool isExist = cart.any((element) => element.id == product.id);
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -116,18 +119,43 @@ class ProductCard extends ConsumerWidget {
                 ),
               ),
               SizedBox(height: 8),
-              ElevatedButton(
-                onPressed: () {
-                  addToCart(ref, product);
-                },
-                child: Text('ADD TO CART'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: primaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                ),
-              ),
+              product.quantity == 0
+                  ? Text(
+                      'Out of stock',
+                      style: TextStyle(
+                        fontSize: 14,
+                        fontWeight: FontWeight.bold,
+                        color: redColor,
+                      ),
+                    )
+                  : isExist
+                      ? Text(
+                          'Already added',
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.bold,
+                            color: blueColor,
+                          ),
+                        )
+                      : ElevatedButton(
+                          onPressed: () {
+                            addToCart(ref, product);
+                          },
+                          child: Text(
+                            'ADD TO CART',
+                            style: TextStyle(
+                              fontSize: 10,
+                              fontWeight: FontWeight.bold,
+                              color: whiteColor,
+                            ),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: primaryColor,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(5.0),
+                            ),
+                          ),
+                        ),
             ],
           ),
           SizedBox(height: 8),

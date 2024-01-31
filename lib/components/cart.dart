@@ -16,9 +16,6 @@ class Cart extends ConsumerWidget {
 
     final cartData = ref.watch(cartProvider);
 
-    final List<Product> products = [
-      // Add more products as needed
-    ];
     return Container(
       width: screenSize.width > 600
           ? MediaQuery.of(context).size.width * 0.35
@@ -58,7 +55,12 @@ class Cart extends ConsumerWidget {
                     ),
                     ElevatedButton(
                         onPressed: () => {clearCart(ref)},
-                        child: Text("Clear"),
+                        child: Text(
+                          "Clear",
+                          style: TextStyle(
+                            color: whiteColor,
+                          ),
+                        ),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: secondaryColor,
                           shape: RoundedRectangleBorder(
@@ -245,60 +247,64 @@ class Cart extends ConsumerWidget {
                     SizedBox(
                       height: 50,
                     ),
-                    Row(
-                      children: [
-                        Container(
-                            padding: EdgeInsets.only(
-                                left: 15, right: 15, top: 8, bottom: 8),
-                            decoration: BoxDecoration(
-                              border:
-                                  Border.all(color: primaryColor, width: 0.8),
-                              borderRadius: BorderRadius.circular(4),
-                              color: whiteColor,
-                            ),
-                            child: Row(
-                              children: [
-                                Text(
-                                  "CLEAR",
-                                  style: TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold,
-                                      color: HexColor('E74C3C')),
-                                ),
-                              ],
-                            )),
-                        SizedBox(
-                          width: 10,
-                        ),
-                        Container(
-                            // width: 150,
-                            padding: EdgeInsets.only(
-                                left: 13, right: 13, top: 5, bottom: 5),
-                            decoration: BoxDecoration(
-                              border: Border.all(color: whiteColor, width: 0.8),
-                              borderRadius: BorderRadius.circular(4),
-                              color: primaryColor,
-                            ),
-                            child: Row(
-                              children: [
-                                Icon(
-                                  Icons.add,
-                                  color: whiteColor,
-                                  size: 15,
-                                ),
-                                SizedBox(
-                                  width: 5,
-                                ),
-                                Text(
-                                  "CONFIRM TRANSAvvCTION",
-                                  style: TextStyle(
-                                      fontSize: 10,
-                                      fontWeight: FontWeight.bold,
-                                      color: whiteColor),
-                                ),
-                              ],
-                            )),
-                      ],
+                    GestureDetector(
+                      onTap: () => {clearCart(ref)},
+                      child: Row(
+                        children: [
+                          Container(
+                              padding: EdgeInsets.only(
+                                  left: 15, right: 15, top: 8, bottom: 8),
+                              decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: primaryColor, width: 0.8),
+                                borderRadius: BorderRadius.circular(4),
+                                color: whiteColor,
+                              ),
+                              child: Row(
+                                children: [
+                                  Text(
+                                    "CLEAR",
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold,
+                                        color: HexColor('E74C3C')),
+                                  ),
+                                ],
+                              )),
+                          SizedBox(
+                            width: 10,
+                          ),
+                          Container(
+                              // width: 150,
+                              padding: EdgeInsets.only(
+                                  left: 13, right: 13, top: 5, bottom: 5),
+                              decoration: BoxDecoration(
+                                border:
+                                    Border.all(color: whiteColor, width: 0.8),
+                                borderRadius: BorderRadius.circular(4),
+                                color: primaryColor,
+                              ),
+                              child: Row(
+                                children: [
+                                  Icon(
+                                    Icons.add,
+                                    color: whiteColor,
+                                    size: 15,
+                                  ),
+                                  SizedBox(
+                                    width: 5,
+                                  ),
+                                  Text(
+                                    "CONFIRM TRANSAvvCTION",
+                                    style: TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold,
+                                        color: whiteColor),
+                                  ),
+                                ],
+                              )),
+                        ],
+                      ),
                     ),
                   ],
                 ),
