@@ -26,11 +26,19 @@ class MenuItem extends StatelessWidget {
       onTap: onTap,
       onHover: onHover,
       child: Container(
-        color: isHover != null && isHover!
-            ? blackColor
-            : isSelected
-                ? blackColor
-                : Colors.transparent,
+        decoration: BoxDecoration(
+          color: isHover != null && isHover!
+              ? blackColor
+              : isSelected
+                  ? blackColor
+                  : Colors.transparent,
+          border: Border(
+            bottom: BorderSide(
+              color: greyColor,
+              width: 1,
+            ),
+          ),
+        ),
         width: double.infinity,
         child: Padding(
           padding: EdgeInsets.all(6),

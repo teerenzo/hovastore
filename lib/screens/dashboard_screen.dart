@@ -1,6 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
+import 'package:hovastore/components/Header.dart';
+import 'package:hovastore/components/productList.dart';
+import 'package:hovastore/models/productModel.dart';
+import 'package:hovastore/screens/TransactionMobile.dart';
+import 'package:hovastore/screens/cart.dart';
+import 'package:hovastore/screens/cartScreen.dart';
 import 'package:hovastore/utils/colors.dart';
-import 'package:hovastore/widgets/MenuItem.dart';
+import 'package:hovastore/components/MenuItem.dart';
+import 'package:hovastore/components/cartItem.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -12,275 +20,63 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen> {
   @override
   Widget build(BuildContext context) {
+    final screenSize = MediaQuery.of(context).size;
+
+    int _selectedIndex = 1;
+
+    List<Widget> _widgetOptions = <Widget>[
+      Text('Home Page',
+          style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+      Text('Transactions Page',
+          style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+      Text('Inventory Page',
+          style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+      Text('Profile Page',
+          style: TextStyle(fontSize: 35, fontWeight: FontWeight.bold)),
+    ];
+
+    void _onItemTapped(int index) {
+      setState(() {
+        _selectedIndex = index;
+      });
+    }
+
     final List<Product> products = [
-      Product(name: 'Laptop Charger', price: 'RWF 1200'),
-      Product(name: 'Phone Charger', price: 'RWF 1000'),
-      Product(name: 'Laptop Charger', price: 'RWF 1200'),
-      Product(name: 'Phone Charger', price: 'RWF 1000'),
-      Product(name: 'Laptop Charger', price: 'RWF 1200'),
-      Product(name: 'Phone Charger', price: 'RWF 1000'),
-      Product(name: 'Laptop Charger', price: 'RWF 1200'),
-      Product(name: 'Phone Charger', price: 'RWF 1000'),
       // Add more products as needed
     ];
     return Scaffold(
-        body: Row(
-      children: [
-        SideMenu(),
-        Expanded(
-          child: Column(
-            children: [
-              Header(),
-              Expanded(
-                child: Container(
-                  color: lightGreyColor,
-                  child: Row(
-                    children: [
-                      Expanded(
-                          child: Container(
-                        // color: Colors.red,
-                        padding: EdgeInsets.all(10),
-                        child: GridView.builder(
-                          itemCount: products.length,
-                          itemBuilder: (BuildContext context, int index) {
-                            return ProductCard(product: products[index]);
-                            ;
-                          },
-                          gridDelegate:
-                              SliverGridDelegateWithFixedCrossAxisCount(
-                                  crossAxisCount: 2,
-                                  crossAxisSpacing: 8,
-                                  mainAxisSpacing: 8,
-                                  childAspectRatio: (2 / 1)),
-                        ),
-                      )),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.4,
-                        color: secondaryColor,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
-      ],
-    ));
-  }
-}
-
-class Header extends StatelessWidget {
-  const Header({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(children: [
-      Container(
-        padding: EdgeInsets.all(10),
-        color: whiteColor,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Row(
-              children: [
-                Container(
-                    padding: EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                        color: lightGreyColor,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Icon(Icons.store)),
-                SizedBox(
-                  width: 10,
-                ),
-                Text(
-                  "HOVA STORE LTD",
-                  style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                      color: secondaryColor),
-                ),
-              ],
-            ),
-            Row(
-              children: [
-                Icon(Icons.account_circle_rounded),
-                SizedBox(
-                  width: 5,
-                ),
-                Text("Xavier N.",
-                    style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
-                        color: secondaryColor)),
-                SizedBox(
-                  width: 20,
-                ),
-
-                // logout button
-                Container(
-                    padding:
-                        EdgeInsets.only(left: 13, right: 13, top: 5, bottom: 5),
-                    decoration: BoxDecoration(
-                        border: Border.all(color: primaryColor, width: 0.8),
-                        borderRadius: BorderRadius.circular(16)),
-                    child: Row(
+        body: screenSize.width > 600
+            ? Row(
+                children: [
+                  SideMenu(),
+                  Expanded(
+                    child: Column(
                       children: [
-                        Icon(
-                          Icons.logout,
-                          color: primaryColor,
-                          size: 15,
-                        ),
-                        SizedBox(
-                          width: 5,
-                        ),
-                        Text(
-                          "LOGOUT",
-                          style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.bold,
-                              color: primaryColor),
-                        ),
-                      ],
-                    )),
-              ],
-            )
-          ],
-        ),
-      )
-    ]);
-  }
-}
-
-class Product {
-  final String name;
-  final String price;
-
-  Product({required this.name, required this.price});
-}
-
-class ProductCard extends StatelessWidget {
-  final Product product;
-
-  ProductCard({required this.product});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(8),
-        border: Border.all(
-          color: secondaryColor,
-          width: 0.5,
-        ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.2),
-            spreadRadius: 1,
-            blurRadius: 2,
-            offset: Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Container(
-                        // padding: EdgeInsets.all(10),
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: lightGreyColor,
-                          borderRadius: BorderRadius.circular(100),
-                          border: Border.all(
-                            color: greenColor,
-                            width: 0.5,
-                          ),
-                        ),
-                        child: Center(
-                          child: Text(
-                            '111',
-                            style: TextStyle(
-                              fontSize: 16,
-                              color: greenColor,
-                              fontWeight: FontWeight.bold,
+                        Header(),
+                    
+                        Expanded(
+                          child: Container(
+                            color: secondaryColor,
+                            child: Row(
+                              children: [ProductListUi(), Cart()],
                             ),
                           ),
-                        )),
-                    SizedBox(width: 8),
-                    Text(
-                      product.name,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                Spacer(),
-                Container(
-                  // padding: EdgeInsets.all(10),
-                  width: 40,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: lightGreyColor,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(
-                      color: primaryColor,
-                      width: 0.5,
+                        ),
+                      ],
                     ),
                   ),
-                  child: Center(
-                      child: Icon(
-                    Icons.more_horiz,
-                    color: primaryColor,
-                  )),
-                )
-              ],
-            ),
-          ),
-          SizedBox(height: 8),
-          Divider(),
-          SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Text(
-                product.price,
-                style: TextStyle(
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  color: blackColor,
-                ),
-              ),
-              SizedBox(height: 8),
-              ElevatedButton(
-                onPressed: () {
-                  // Add your add to cart functionality here
-                },
-                child: Text('ADD TO CART'),
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: primaryColor,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(5.0),
-                  ),
-                ),
-              ),
-            ],
-          ),
-          SizedBox(height: 8),
-        ],
-      ),
-    );
+                ],
+              )
+            : Transaction());
+  }
+}
+
+class CustomAppBarCu extends StatelessWidget {
+  const CustomAppBarCu({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const Placeholder();
   }
 }
 
@@ -406,7 +202,9 @@ class _SideMenuState extends State<SideMenu> {
               padding: EdgeInsets.all(20),
               child: Column(
                 children: [
-                  Text("Powered by "),
+                  Text("Powered by ",
+                      style: TextStyle(color: whiteColor, fontSize: 12)),
+                  const SizedBox(height: 5),
                   Text(
                     "HOVA AI",
                     style: TextStyle(
