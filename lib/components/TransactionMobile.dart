@@ -4,7 +4,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hovastore/components/productList.dart';
 import 'package:hovastore/provider/product_provider.dart';
-import 'package:hovastore/screens/cartScreen.dart';
+import 'package:hovastore/components/cartScreen.dart';
 import 'package:hovastore/utils/colors.dart';
 
 class Transaction extends ConsumerStatefulWidget {
@@ -106,7 +106,7 @@ class _TransactionState extends ConsumerState<Transaction> {
                   height: 20,
                   decoration: BoxDecoration(
                     color: lightGreyColor,
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       topLeft: Radius.circular(20),
                       topRight: Radius.circular(20),
                     ),
@@ -117,12 +117,12 @@ class _TransactionState extends ConsumerState<Transaction> {
                       ),
                     ),
                   ),
+                  child: null,
                 ),
-                Expanded(
-                  child: Container(
-                    color: lightGreyColor,
-                    child: ProductListUi(),
-                  ),
+                Container(
+                  height: MediaQuery.of(context).size.height - 133,
+                  color: lightGreyColor,
+                  child: ProductListUi(),
                 ),
               ],
             ),

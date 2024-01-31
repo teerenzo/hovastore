@@ -3,12 +3,12 @@ import 'package:hexcolor/hexcolor.dart';
 import 'package:hovastore/components/Header.dart';
 import 'package:hovastore/components/productList.dart';
 import 'package:hovastore/models/productModel.dart';
-import 'package:hovastore/screens/TransactionMobile.dart';
-import 'package:hovastore/screens/cart.dart';
-import 'package:hovastore/screens/cartScreen.dart';
+import 'package:hovastore/components/TransactionMobile.dart';
+import 'package:hovastore/components/cart.dart';
+import 'package:hovastore/components/cartScreen.dart';
 import 'package:hovastore/utils/colors.dart';
-import 'package:hovastore/components/MenuItem.dart';
-import 'package:hovastore/components/cartItem.dart';
+import 'package:hovastore/widgets/MenuItem.dart';
+import 'package:hovastore/widgets/cartItem.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -53,7 +53,6 @@ class _DashboardScreenState extends State<DashboardScreen> {
                     child: Column(
                       children: [
                         Header(),
-                    
                         Expanded(
                           child: Container(
                             color: secondaryColor,

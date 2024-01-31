@@ -47,16 +47,24 @@ class ProductCard extends ConsumerWidget {
                           color: lightGreyColor,
                           borderRadius: BorderRadius.circular(100),
                           border: Border.all(
-                            color: greenColor,
+                            color: product.quantity! > 5
+                                ? greenColor
+                                : product.quantity == 0
+                                    ? redColor
+                                    : Colors.orange,
                             width: 0.5,
                           ),
                         ),
                         child: Center(
                           child: Text(
-                            '111',
+                            '${product.quantity}',
                             style: TextStyle(
-                              fontSize: 16,
-                              color: greenColor,
+                              fontSize: 10,
+                              color: product.quantity! > 5
+                                  ? greenColor
+                                  : product.quantity == 0
+                                      ? redColor
+                                      : Colors.orange,
                               fontWeight: FontWeight.bold,
                             ),
                           ),

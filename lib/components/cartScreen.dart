@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hovastore/provider/product_provider.dart';
-import 'package:hovastore/screens/cart.dart';
+import 'package:hovastore/components/cart.dart';
 import 'package:hovastore/utils/colors.dart';
 
 class CartScreen extends ConsumerWidget {
@@ -70,7 +70,16 @@ class CartScreen extends ConsumerWidget {
         ],
       ),
       body: Container(
-        child: Center(child: Cart()),
+        child: Center(
+            child: cartData.length <= 0
+                ? Text(
+                    "No Products on cart",
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )
+                : Cart()),
       ),
     );
   }

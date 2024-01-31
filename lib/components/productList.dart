@@ -17,7 +17,7 @@ class ProductListUi extends ConsumerWidget {
     final productsData = ref.watch(productsProvider);
     final search = ref.watch(searchProvider);
 
-    return Expanded(
+    return Container(
         child: productsData.when(
       data: (products) {
         List<Product> productsList = search != ''
@@ -26,50 +26,104 @@ class ProductListUi extends ConsumerWidget {
                     element.name!.toLowerCase().contains(search.toLowerCase()))
                 .toList()
             : products;
-        return Container(
-          color: lightGreyColor,
-          padding: EdgeInsets.all(20),
-          child: Column(
-            children: [
-              // search bar
-              Container(
-                padding: EdgeInsets.only(bottom: 12),
-                child: Row(
+        return screenSize.width < 600
+            ? Container(
+                padding: EdgeInsets.all(10),
+                height: screenSize.height * 0.7,
+                child: Column(
                   children: [
-                    Expanded(
-                      child: SearchField(),
+                    // search bar
+                    Container(
+                      padding: EdgeInsets.only(bottom: 12),
+                      child: Row(
+                        children: [
+                          Expanded(
+                            child: SearchField(),
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    Container(
+                      height: screenSize.height * 0.69,
+                      child: productsList.length <= 0
+                          ? Center(
+                              child: Text(
+                                'No products found',
+                                style: TextStyle(
+                                  fontSize: 20,
+                                  color: primaryColor,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            )
+                          : GridView.builder(
+                              itemCount: productsList.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return ProductCard(
+                                    product: productsList[index]);
+                              },
+                              gridDelegate:
+                                  SliverGridDelegateWithFixedCrossAxisCount(
+                                      crossAxisCount:
+                                          screenSize.width > 600 ? 2 : 1,
+                                      crossAxisSpacing: 20,
+                                      mainAxisSpacing: 20,
+                                      childAspectRatio: (2 / 1)),
+                            ),
                     ),
                   ],
                 ),
-              ),
-
-              Expanded(
-                child: productsList.length <= 0
-                    ? Center(
-                        child: Text(
-                          'No products found',
-                          style: TextStyle(
-                            fontSize: 20,
-                            color: primaryColor,
-                            fontWeight: FontWeight.bold,
-                          ),
+              )
+            : Expanded(
+                child: Container(
+                  color: lightGreyColor,
+                  padding: EdgeInsets.all(20),
+                  child: Column(
+                    children: [
+                      // search bar
+                      Container(
+                        padding: EdgeInsets.only(bottom: 12),
+                        child: Row(
+                          children: [
+                            Expanded(
+                              child: SearchField(),
+                            ),
+                          ],
                         ),
-                      )
-                    : GridView.builder(
-                        itemCount: productsList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return ProductCard(product: productsList[index]);
-                        },
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: screenSize.width > 600 ? 2 : 1,
-                            crossAxisSpacing: 20,
-                            mainAxisSpacing: 20,
-                            childAspectRatio: (2 / 1)),
                       ),
-              ),
-            ],
-          ),
-        );
+
+                      Expanded(
+                        child: productsList.length <= 0
+                            ? Center(
+                                child: Text(
+                                  'No products found',
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    color: primaryColor,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              )
+                            : GridView.builder(
+                                itemCount: productsList.length,
+                                itemBuilder: (BuildContext context, int index) {
+                                  return ProductCard(
+                                      product: productsList[index]);
+                                },
+                                gridDelegate:
+                                    SliverGridDelegateWithFixedCrossAxisCount(
+                                        crossAxisCount:
+                                            screenSize.width > 600 ? 2 : 1,
+                                        crossAxisSpacing: 20,
+                                        mainAxisSpacing: 20,
+                                        childAspectRatio: (2 / 1)),
+                              ),
+                      ),
+                    ],
+                  ),
+                ),
+              );
       },
       loading: () => const Center(
         child: CircularProgressIndicator(),
