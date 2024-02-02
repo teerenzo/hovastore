@@ -1,16 +1,29 @@
-# hovastore
+# Hovastore
 
-A new Flutter project.
+## Features
 
-## Getting Started
+- product display
+- cart functionality
 
-This project is a starting point for a Flutter application.
+## Installation
 
-A few resources to get you started if this is your first Flutter project:
+```bash
+git clone https://github.com/teerenzo/hovastore.git
+cd hovastore
+flutter pub get
+flutter run
+```
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Screenshots
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Screenshot 2024-02-02 112913](https://github.com/teerenzo/hovastore/assets/71966667/3061aef5-1176-48fa-affd-252749302564)
+
+![Screenshot 2024-02-02 113034](https://github.com/teerenzo/hovastore/assets/71966667/d974f073-2b0f-4979-ab47-d61bf7b286a0) ![Screenshot 2024-02-02 113118](https://github.com/teerenzo/hovastore/assets/71966667/2ef7bf89-4914-4793-b0f9-1cbb765b09a7)
+
+## Dependencies
+
+- hexcolor (for colors)
+- flutter_riverpod (for state management)
+- http (for HTTP requests)
+
+
